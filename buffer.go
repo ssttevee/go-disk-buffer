@@ -39,6 +39,10 @@ func (b *Buffer) Read(p []byte) (_ int, err error) {
 
 		return n, err
 	}
+	
+	if b.file == nil {
+		return 0, io.EOF
+	}
 
 	if b.fcurrentOffset != b.freadOffset {
 		if b.fcurrentOffset, err = b.file.Seek(b.freadOffset, 0); err != nil {
